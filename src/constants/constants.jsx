@@ -10,11 +10,19 @@ export const MAIN_SCREEN = "MAIN_SCREEN";
 
 export const THEMES = {
   STANDARD: "STANDARD",
+  RETRO: "RETRO",
+  MODERN: "MODERN",
 };
 
 export const THEME_ASSETS = {
   [THEMES.STANDARD]: {
-
+    // Standard CSS-based theme assets
+  },
+  [THEMES.RETRO]: {
+    radioImg: "/images/radio_retro.png",
+  },
+  [THEMES.MODERN]: {
+    radioImg: "/images/radio_modern.png",
   }
 };
 
