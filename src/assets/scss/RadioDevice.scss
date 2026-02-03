@@ -1,0 +1,223 @@
+// Styles for RadioDevice.jsx (Standard Skin)
+.skin-standard {
+    .radio-device {
+        width: 800px;
+        height: 500px;
+        background: linear-gradient(to bottom, #2c3e50, #1a252f);
+        border-radius: 40px;
+        box-shadow:
+            0 20px 50px rgba(0, 0, 0, 0.5),
+            inset 0 2px 2px rgba(255, 255, 255, 0.1),
+            inset 0 -5px 15px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        border: 8px solid #34495e;
+        position: relative; // Ensure relative context
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 3h1v1H1V3zm2-2h1v1H3V1z' fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            pointer-events: none;
+            border-radius: 30px;
+        }
+
+        // Restore Internal Layout for Standard Skin
+        .radio-top {
+            flex: 1;
+            display: flex;
+            gap: 30px;
+            position: relative; // Reset from absolute
+        }
+
+        .speaker-grill {
+            flex: 1;
+            background: #111;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+            top: auto;
+            left: auto;
+            width: auto;
+            height: auto; // Reset positioning
+
+            background-image: radial-gradient(#333 15%, transparent 16%);
+            background-size: 8px 8px;
+        }
+
+        .display-panel {
+            flex: 1.5;
+            background: #000;
+            border-radius: 20px;
+            border: 4px solid #555;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 40px;
+            top: auto;
+            right: auto;
+            width: auto;
+            height: auto;
+            pointer-events: auto;
+            z-index: auto; // Reset
+
+            .scale-container {
+                position: relative;
+                height: 80px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+
+                .scale-marks {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    opacity: 1;
+
+                    span {
+                        color: #d35400;
+                        font-family: 'Share Tech Mono', monospace;
+                        font-size: 1.2rem;
+                        position: relative;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            bottom: -20px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 2px;
+                            height: 10px;
+                            background: #d35400;
+                        }
+                    }
+                }
+
+                .needle {
+                    position: absolute;
+                    top: 10px;
+                    bottom: 10px;
+                    width: 4px;
+                    background: #e74c3c;
+                    box-shadow: 0 0 10px #e74c3c;
+                    z-index: 10;
+                    border-radius: 2px;
+                    height: auto;
+                }
+            }
+
+            .lcd-display {
+                display: block; // Show in standard
+                margin-top: 20px;
+                text-align: center;
+                font-family: 'Share Tech Mono', monospace;
+                color: #e74c3c;
+                font-size: 3rem;
+                text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+
+                .mhz {
+                    font-size: 1rem;
+                    margin-left: 10px;
+                    opacity: 0.7;
+                }
+            }
+        }
+
+        .radio-controls {
+            height: 120px;
+            background: #2c3e50;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 40px;
+            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            bottom: auto;
+            right: auto;
+            width: auto;
+            z-index: auto; // Reset
+
+            .control-group {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                max-width: 300px;
+                height: auto;
+
+                label {
+                    position: relative;
+                    bottom: auto;
+                    color: #95a5a6;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    text-shadow: none;
+                    display: block;
+                }
+            }
+        }
+
+        // Input styles specific to Standard skin (Sliders)
+        input[type=range] {
+            width: 100%;
+            height: auto;
+            opacity: 1;
+            cursor: pointer;
+            background: transparent;
+            border-radius: 0;
+            border: none;
+            margin: 0;
+            padding: 0;
+            -webkit-appearance: none;
+            appearance: none;
+
+            &:focus {
+                outline: none;
+            }
+
+            // Track
+            &::-webkit-slider-runnable-track {
+                width: 100%;
+                height: 8px;
+                cursor: pointer;
+                background: #111;
+                border-radius: 4px;
+                box-shadow: 0 1px 1px rgba(255, 255, 255, 0.1);
+            }
+
+            // Thumb (Knob)
+            &::-webkit-slider-thumb {
+                height: 24px;
+                width: 24px;
+                border-radius: 50%;
+                background: #ecf0f1;
+                cursor: pointer;
+                -webkit-appearance: none;
+                margin-top: -8px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+                border: 2px solid #bdc3c7;
+                opacity: 1;
+            }
+        }
+    }
+}

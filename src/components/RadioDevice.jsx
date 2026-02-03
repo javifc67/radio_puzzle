@@ -1,0 +1,68 @@
+import '../assets/scss/RadioDevice.scss';
+
+export default function RadioDevice({
+    frequency,
+    setFrequency,
+    volume,
+    setVolume,
+    minFreq,
+    maxFreq,
+    step
+}) {
+
+    const calculateNeedlePosition = () => {
+        const pct = ((frequency - minFreq) / (maxFreq - minFreq)) * 100;
+        return Math.min(Math.max(pct, 0), 100);
+    };
+
+    return (
+        <div className="radio-device">
+            <div className="radio-top">
+                <div className="speaker-grill"></div>
+                <div className="display-panel">
+                    <div className="lcd-display">
+                        {frequency.toFixed(1)} <span className="mhz">MHz</span>
+                    </div>
+                    <div className="scale-container">
+                        <div className="scale-marks">
+                            {[0, 25, 50, 75, 100].map(p => (
+                                <span key={p} style={{ fontSize: '0.8rem' }}>|</span>
+                            ))}
+                            <span style={{ position: 'absolute', left: '0%' }}>{minFreq}</span>
+                            <span style={{ position: 'absolute', right: '0%' }}>{maxFreq}</span>
+                        </div>
+                        <div className="needle" style={{ left: `${calculateNeedlePosition()}%` }}></div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="radio-controls">
+                <div className="control-group">
+                    <label>Tuner</label>
+                    <input
+                        type="range"
+                        min={minFreq}
+                        max={maxFreq}
+                        step={step}
+                        value={frequency}
+                        onChange={(e) => {
+                            const val = parseFloat(e.target.value);
+                            setFrequency(val);
+                        }}
+                    />
+                </div>
+                <div className="control-group">
+                    <label>Volume</label>
+                    <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value={volume}
+                        onChange={(e) => setVolume(parseFloat(e.target.value))}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+}
