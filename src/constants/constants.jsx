@@ -2,6 +2,7 @@ export const DEFAULT_APP_SETTINGS = {
   skin: "MODERN", //skin can be STANDARD
   backgroundImg: "NONE", //background can be "NONE" or a URL.
   whiteNoiseSound: "/sounds/white_noise.wav",
+  actionWhenLoadingIfSolved: "FALSE",
   stations: [
   ],
   range: { min: 87.0, max: 108.0 },
@@ -27,7 +28,7 @@ export const THEME_ASSETS = {
   [THEMES.RETRO]: {
     radioImg: "/images/radio_retro.png",
     buttonImg: "/images/button_retro.png",
-    displayImg: "/images/display_retro3.png",
+    displayImg: "/images/display_retro.png",
     aspectRatio: "786/546",
     displayPanel: {
       top: "26.5%",

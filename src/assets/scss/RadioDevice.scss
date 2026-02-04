@@ -90,22 +90,23 @@
                     align-items: center;
                     opacity: 1;
 
-                    span {
+                    span,
+                    p {
                         color: #d35400;
                         font-family: 'Share Tech Mono', monospace;
                         font-size: 1.2rem;
                         position: relative;
 
-                        &::after {
-                            content: '';
-                            position: absolute;
-                            bottom: -20px;
-                            left: 50%;
-                            transform: translateX(-50%);
-                            width: 2px;
-                            height: 10px;
-                            background: #d35400;
-                        }
+
+                    }
+
+                    span::after {
+                        content: '';
+                        position: absolute;
+                        bottom: -60px;
+                        width: 3px;
+                        height: 25px;
+                        background: #d35400;
                     }
                 }
 
@@ -217,6 +218,18 @@
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
                 border: 2px solid #bdc3c7;
                 opacity: 1;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+
+                &::-webkit-slider-runnable-track {
+                    cursor: not-allowed;
+                }
+
+                &::-webkit-slider-thumb {
+                    cursor: not-allowed;
+                }
             }
         }
     }

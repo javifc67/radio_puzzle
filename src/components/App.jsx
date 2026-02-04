@@ -19,7 +19,6 @@ export default function App() {
   const [screen, setScreen] = useState(MAIN_SCREEN);
   const prevScreen = useRef(screen);
   const [solved, setSolved] = useState(false);
-  const [solvedTrigger, setSolvedTrigger] = useState(0);
 
   useEffect(() => {
     if (escapp !== null) {
@@ -80,16 +79,6 @@ export default function App() {
 
   function restoreAppState(erState) {
     Utils.log("Restore application state based on escape room state:", erState);
-    const _settings = escapp.getSettings();
-
-    if (!_settings.linkedPuzzleIds || _settings.linkedPuzzleIds.length === 0) {
-      setAppSettings((prevSettings) => {
-        return {
-          ...prevSettings,
-          disableButton: true,
-        };
-      });
-    }
 
     if (escapp.getAllPuzzlesSolved() && escapp.getLastSolution()) {
       if (appSettings.actionWhenLoadingIfSolved) {
@@ -109,6 +98,9 @@ export default function App() {
 
     // Merge _appSettings with DEFAULT_APP_SETTINGS_SKIN to obtain final app settings
     _appSettings = Utils.deepMerge(DEFAULT_APP_SETTINGS_SKIN, _appSettings);
+
+    _appSettings.actionWhenLoadingIfSolved = _appSettings.actionWhenLoadingIfSolved === true || _appSettings.actionWhenLoadingIfSolved === "TRUE";
+
 
     I18n.init(_appSettings);
 
@@ -149,7 +141,6 @@ export default function App() {
           Utils.log("Error in checkNextPuzzle", e);
         }
       }
-      setSolvedTrigger((prev) => prev + 1);
     });
   }
   function submitPuzzleSolution(_solution) {
@@ -185,7 +176,7 @@ export default function App() {
             width: "100%",
           }}
         >
-          <MainScreen solvePuzzle={solvePuzzle} solved={solved} solvedTrigger={solvedTrigger} />
+          <MainScreen solvePuzzle={solvePuzzle} solved={solved} />
         </div>
       ),
     }

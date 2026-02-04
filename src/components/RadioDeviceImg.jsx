@@ -11,7 +11,8 @@ export default function RadioDeviceImg({
     setVolume,
     minFreq,
     maxFreq,
-    step
+    step,
+    solved
 }) {
     const [showVolume, setShowVolume] = useState(false);
     const radioRef = useRef(null);
@@ -140,6 +141,7 @@ export default function RadioDeviceImg({
                         max={maxFreq}
                         step={step}
                         onChange={(val) => setFrequency(val)}
+                        disabled={solved}
                     />
                 </div>
             </div>

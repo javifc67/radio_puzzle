@@ -4,23 +4,32 @@ import { GlobalContext } from "./GlobalContext.jsx";
 import RadioDevice from "./RadioDevice.jsx";
 import RadioDeviceImg from "./RadioDeviceImg.jsx";
 import { THEMES } from "../constants/constants.jsx";
+import useSound from "../hooks/useSound.js";
 
-export default function MainScreen({ solvePuzzle, solved, solvedTrigger }) {
+export default function MainScreen({ solvePuzzle, solved }) {
     const { appSettings: config, Storage } = useContext(GlobalContext);
+    const winSound = useSound("/sounds/win.mp3");
+
+    const audioCtxRef = useRef(null);
+    const staticNodeRef = useRef(null);
+    const staticGainRef = useRef(null);
+    const stationNodesRef = useRef({}); // { freq: { element: Audio, gain: GainNode, source: MediaElementSource } }
+    const masterGainRef = useRef(null);
+
+    const [isClicked, setIsClicked] = useState(false);
+    const [frequency, setFrequency] = useState(() => {
+        const stored = Storage?.getSetting("frequency");
+        return (stored !== null && stored !== undefined) ? parseFloat(stored) : (config.range?.min);
+    });
+    const [volume, setVolume] = useState(() => {
+        const stored = Storage?.getSetting("volume");
+        return (stored !== null && stored !== undefined) ? parseFloat(stored) : 0.5;
+    });
 
     const MIN_FREQ = config.range?.min;
     const MAX_FREQ = config.range?.max;
     const STEP = config.step;
     const TOLERANCE = config.tolerance;
-    const [isClicked, setIsClicked] = useState(false);
-    const [frequency, setFrequency] = useState(() => {
-        const stored = Storage?.getSetting("frequency");
-        return stored ? parseFloat(stored) : (config.range?.min);
-    });
-    const [volume, setVolume] = useState(() => {
-        const stored = Storage?.getSetting("volume");
-        return stored ? parseFloat(stored) : 0.5;
-    });
 
     // Save state to storage on change
     useEffect(() => {
@@ -35,11 +44,11 @@ export default function MainScreen({ solvePuzzle, solved, solvedTrigger }) {
         }
     }, [volume, Storage]);
 
-    const audioCtxRef = useRef(null);
-    const staticNodeRef = useRef(null);
-    const staticGainRef = useRef(null);
-    const stationNodesRef = useRef({}); // { freq: { element: Audio, gain: GainNode, source: MediaElementSource } }
-    const masterGainRef = useRef(null);
+    useEffect(() => {
+        if (solved) {
+            winSound.play();
+        }
+    }, [solved]);
 
     // Initialize Audio Context
     useEffect(() => {
@@ -64,8 +73,6 @@ export default function MainScreen({ solvePuzzle, solved, solvedTrigger }) {
             audio.loop = true;
             audio.crossOrigin = "anonymous";
             audio.volume = volume;
-
-            // Save ref
             stationNodesRef.current[station.freq] = { audio, config: station };
         });
 
@@ -136,7 +143,7 @@ export default function MainScreen({ solvePuzzle, solved, solvedTrigger }) {
         source.buffer = buffer;
         source.loop = true;
         const gain = ctx.createGain();
-        gain.gain.value = 0.5;
+        gain.gain.value = 0;
         source.connect(gain);
         gain.connect(masterGain);
         source.start();
@@ -163,6 +170,7 @@ export default function MainScreen({ solvePuzzle, solved, solvedTrigger }) {
                 minFreq={MIN_FREQ}
                 maxFreq={MAX_FREQ}
                 step={STEP}
+                solved={solved}
             /> : <RadioDeviceImg
                 config={config}
                 frequency={frequency}
@@ -172,6 +180,7 @@ export default function MainScreen({ solvePuzzle, solved, solvedTrigger }) {
                 minFreq={MIN_FREQ}
                 maxFreq={MAX_FREQ}
                 step={STEP}
+                solved={solved}
             />}
         </div>
     );

@@ -7,7 +7,8 @@ export default function RotaryKnob({
     max,
     onChange,
     step,
-    size = "100%"
+    size = "100%",
+    disabled = false
 }) {
     const knobRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -16,6 +17,7 @@ export default function RotaryKnob({
     const rotation = -135 + (normalized * 270);
 
     const handleStart = (clientX, clientY) => {
+        if (disabled) return;
         setIsDragging(true);
         updateValueFromPointer(clientX, clientY);
     };
@@ -108,8 +110,8 @@ export default function RotaryKnob({
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                cursor: 'pointer',
-                touchAction: 'none' // Important for preventing scroll while dragging
+                cursor: disabled ? 'not-allowed' : 'pointer',
+                touchAction: 'none'
             }}
             onMouseDown={onMouseDown}
             onTouchStart={onTouchStart}

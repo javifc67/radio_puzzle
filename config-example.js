@@ -3,7 +3,8 @@
 export let ESCAPP_APP_SETTINGS = {
   //Settings that can be specified by the authors
   skin: "MODERN", //skin can be STANDARD, RETRO or MODERN
-  // backgroundImg: "NONE", //background can be "NONE" or a URL.  
+  // backgroundImg: "NONE", //background can be "NONE" or a URL.
+  // actionWhenLoadingIfSolved: "TRUE",
   // Radio Configuration
 
   stations: [

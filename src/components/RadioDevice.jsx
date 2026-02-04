@@ -7,7 +7,8 @@ export default function RadioDevice({
     setVolume,
     minFreq,
     maxFreq,
-    step
+    step,
+    solved
 }) {
 
     const calculateNeedlePosition = () => {
@@ -26,10 +27,10 @@ export default function RadioDevice({
                     <div className="scale-container">
                         <div className="scale-marks">
                             {[0, 25, 50, 75, 100].map(p => (
-                                <span key={p} style={{ fontSize: '0.8rem' }}>|</span>
+                                <span key={p} ></span>
                             ))}
-                            <span style={{ position: 'absolute', left: '0%' }}>{minFreq}</span>
-                            <span style={{ position: 'absolute', right: '0%' }}>{maxFreq}</span>
+                            <p style={{ position: 'absolute', left: '0%' }}>{minFreq}</p>
+                            <p style={{ position: 'absolute', right: '0%' }}>{maxFreq}</p>
                         </div>
                         <div className="needle" style={{ left: `${calculateNeedlePosition()}%` }}></div>
                     </div>
@@ -45,6 +46,7 @@ export default function RadioDevice({
                         max={maxFreq}
                         step={step}
                         value={frequency}
+                        disabled={solved}
                         onChange={(e) => {
                             const val = parseFloat(e.target.value);
                             setFrequency(val);
