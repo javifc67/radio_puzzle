@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use 'variables';
 
 .skin-standard {
@@ -185,7 +186,7 @@
                     font-size: 1rem;
                     margin-left: 10px;
                     opacity: 0.8;
-                    color: adjust-color(variables.$led-color, $saturation: -10%, $lightness: -10%);
+                    color: color.adjust(variables.$led-color, $saturation: -10%, $lightness: -10%);
                     text-shadow: none;
                 }
             }
