@@ -41,6 +41,7 @@ export default function RadioDevice({
                 <div className="control-group">
                     <label>Tuner</label>
                     <input
+                        style={{ cursor: solved ? 'not-allowed' : 'pointer' }}
                         type="range"
                         min={minFreq}
                         max={maxFreq}
