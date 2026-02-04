@@ -12,11 +12,7 @@ export default function RotaryKnob({
     const knobRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
 
-    // Calculate rotation based on value (mapping [min, max] to [-135, 135] degrees usually, or 0-360)
-    // Let's use a standard 270 degree range (-135 to +135) which is common for knobs.
-    // Normalized value (0 to 1)
     const normalized = (value - min) / (max - min);
-    // Map to angle: let's say start at -135deg (bottom-left) and end at 135deg (bottom-right)
     const rotation = -135 + (normalized * 270);
 
     const handleStart = (clientX, clientY) => {

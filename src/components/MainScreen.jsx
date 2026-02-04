@@ -51,7 +51,7 @@ export default function MainScreen({ solvePuzzle, solved, solvedTrigger }) {
 
         // Master Gain (Volume)
         const masterGain = ctx.createGain();
-        masterGain.gain.value = volume;
+        masterGain.gain.value = 0.5;
         masterGain.connect(ctx.destination);
         masterGainRef.current = masterGain;
 
