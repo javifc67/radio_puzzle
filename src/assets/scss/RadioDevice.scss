@@ -1,235 +1,343 @@
-// Styles for RadioDevice.jsx (Standard Skin)
+@use 'variables';
+
 .skin-standard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
     .radio-device {
-        width: 800px;
-        height: 500px;
-        background: linear-gradient(to bottom, #2c3e50, #1a252f);
-        border-radius: 40px;
-        box-shadow:
-            0 20px 50px rgba(0, 0, 0, 0.5),
-            inset 0 2px 2px rgba(255, 255, 255, 0.1),
-            inset 0 -5px 15px rgba(0, 0, 0, 0.3);
-        padding: 40px;
+        width: 900px;
+        height: 550px;
+        position: relative;
+        padding: 50px;
         display: flex;
         flex-direction: column;
-        gap: 30px;
-        border: 8px solid #34495e;
-        position: relative; // Ensure relative context
+        gap: 40px;
 
-        &::before {
+        background-color: variables.$grey;
+        background-image:
+            linear-gradient(to bottom, rgba(variables.$white, 0.05), rgba(variables.$black, 0.8)),
+            url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+        border-radius: 12px;
+
+        box-shadow:
+            inset 0 1px 0 rgba(variables.$white, 0.15),
+            0 30px 60px -10px rgba(variables.$black, 0.8),
+            0 10px 20px -5px rgba(variables.$black, 0.5);
+
+        border: 1px solid variables.$dark-grey;
+
+        color: variables.$light-grey;
+        font-family: variables.$font-family-base;
+
+        &::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 3h1v1H1V3zm2-2h1v1H3V1z' fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.3;
+            top: 15px;
+            left: 15px;
+            bottom: 15px;
+            right: 15px;
             pointer-events: none;
-            border-radius: 30px;
+            border-radius: 8px;
+            box-shadow:
+                inset 1px 1px 1px rgba(variables.$black, 0.8),
+                inset -1px -1px 1px rgba(variables.$white, 0.05);
+            z-index: 5;
+            border: 2px solid transparent;
         }
 
-        // Restore Internal Layout for Standard Skin
+        .antenna-left,
+        .antenna-right {
+            position: absolute;
+            bottom: 85%;
+            width: 14px;
+            height: 380px;
+            background: linear-gradient(90deg, #555 0%, #eee 45%, #fff 50%, #eee 55%, #555 100%);
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            transform-origin: bottom center;
+            z-index: -10;
+            border-radius: 6px;
+            border: 1px solid #333;
+
+            .antenna-segment {
+                width: 100%;
+                flex: 1;
+                background: linear-gradient(90deg, #666 0%, #ccc 40%, #eee 50%, #ccc 60%, #666 100%);
+                border-top: 1px solid #444;
+                position: relative;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: -5px;
+                    left: -2px;
+                    right: -2px;
+                    height: 5px;
+                    background: linear-gradient(to right, #333, #777, #333);
+                    border-radius: 2px;
+                    border: 1px solid #222;
+                }
+            }
+
+            .antenna-top {
+                width: 18px;
+                height: 18px;
+                background: radial-gradient(circle at 35% 35%, #fff, #bbb, #555);
+                border-radius: 50%;
+                margin-bottom: -9px;
+                border: 1px solid #444;
+            }
+        }
+
+        .antenna-left {
+            left: 80px;
+            transform: rotate(-20deg);
+        }
+
+        .antenna-right {
+            right: 80px;
+            transform: rotate(20deg);
+        }
+
         .radio-top {
             flex: 1;
             display: flex;
-            gap: 30px;
-            position: relative; // Reset from absolute
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+            padding: 0 10px;
         }
 
         .speaker-grill {
-            flex: 1;
-            background: #111;
-            border-radius: 20px;
+            flex: 0.9;
+            background-color: variables.$grill-color;
+            border-radius: 8px;
             position: relative;
             overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
-            top: auto;
-            left: auto;
-            width: auto;
-            height: auto; // Reset positioning
+            border: 1px solid variables.$black;
+            box-shadow:
+                inset 2px 2px 8px rgba(variables.$black, 0.9),
+                inset -1px -1px 2px rgba(variables.$white, 0.05);
 
-            background-image: radial-gradient(#333 15%, transparent 16%);
-            background-size: 8px 8px;
+            background-image:
+                radial-gradient(circle, variables.$black 50%, transparent 55%);
+            background-size: 5px 5px;
+            background-position: 0 0;
+
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(135deg, rgba(variables.$white, 0.02), transparent);
+                pointer-events: none;
+            }
         }
 
         .display-panel {
-            flex: 1.5;
-            background: #000;
-            border-radius: 20px;
-            border: 4px solid #555;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9);
+            flex: 1.1;
+            background: variables.$screen-bg;
+            border-radius: 6px;
+            border-top: 2px solid variables.$black;
+            border-left: 2px solid variables.$black;
+            border-bottom: 2px solid #333;
+            border-right: 2px solid #333;
+            box-shadow: inset 0 0 20px rgba(variables.$black, 1);
+
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 0 40px;
-            top: auto;
-            right: auto;
-            width: auto;
-            height: auto;
-            pointer-events: auto;
-            z-index: auto; // Reset
+            padding: 25px 40px;
+            position: relative;
+            overflow: hidden;
+
+            &::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: variables.$glass-reflection;
+                pointer-events: none;
+                z-index: 20;
+            }
+
+            .lcd-display {
+                font-family: variables.$font-family-display;
+                color: variables.$led-color;
+                font-size: 3.8rem;
+                text-align: center;
+                text-shadow: variables.$led-text-shadow;
+                margin-bottom: 25px;
+                display: flex;
+                align-items: baseline;
+                justify-content: center;
+                position: relative;
+                z-index: 5;
+                background: rgba(variables.$black, 0.5);
+                padding: 10px;
+                border: 1px solid variables.$grey;
+                border-radius: 4px;
+                box-shadow: inset 0 0 5px variables.$black;
+
+                .mhz {
+                    font-size: 1rem;
+                    margin-left: 10px;
+                    opacity: 0.8;
+                    color: adjust-color(variables.$led-color, $saturation: -10%, $lightness: -10%);
+                    text-shadow: none;
+                }
+            }
 
             .scale-container {
                 position: relative;
-                height: 80px;
+                height: 60px;
                 width: 100%;
-                display: flex;
-                align-items: center;
+                margin-top: 5px;
+                background: linear-gradient(to right, variables.$grey, #333, variables.$grey);
+                border-radius: 4px;
+                border: 1px solid variables.$dark-grey;
+                box-shadow: inset 0 2px 5px rgba(variables.$black, 0.8);
 
                 .scale-marks {
                     position: absolute;
-                    top: 0;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
+                    inset: 0;
                     display: flex;
                     justify-content: space-between;
-                    align-items: center;
-                    opacity: 1;
+                    align-items: flex-end;
+                    padding: 0 15px 10px 15px;
 
-                    span,
-                    p {
-                        color: #d35400;
-                        font-family: 'Share Tech Mono', monospace;
-                        font-size: 1.2rem;
-                        position: relative;
-
-
+                    span {
+                        width: 1px;
+                        height: 8px;
+                        background: #888;
+                        display: block;
                     }
 
-                    span::after {
-                        content: '';
+                    p {
+                        color: #bbb;
+                        font-family: variables.$font-family-base;
+                        font-size: 0.65rem;
                         position: absolute;
-                        bottom: -60px;
-                        width: 3px;
-                        height: 25px;
-                        background: #d35400;
+                        bottom: 30px;
+                        font-weight: 600;
                     }
                 }
 
                 .needle {
                     position: absolute;
-                    top: 10px;
-                    bottom: 10px;
-                    width: 4px;
-                    background: #e74c3c;
-                    box-shadow: 0 0 10px #e74c3c;
+                    top: 2px;
+                    bottom: 2px;
+                    width: 3px;
+                    background: variables.$needle-color;
                     z-index: 10;
-                    border-radius: 2px;
-                    height: auto;
-                }
-            }
-
-            .lcd-display {
-                display: block; // Show in standard
-                margin-top: 20px;
-                text-align: center;
-                font-family: 'Share Tech Mono', monospace;
-                color: #e74c3c;
-                font-size: 3rem;
-                text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
-
-                .mhz {
-                    font-size: 1rem;
-                    margin-left: 10px;
-                    opacity: 0.7;
+                    box-shadow: 1px 0 2px rgba(variables.$black, 0.5);
+                    transition: left 0.1s linear;
                 }
             }
         }
 
         .radio-controls {
-            height: 120px;
-            background: #2c3e50;
-            border-radius: 20px;
+            height: 130px;
+            background: #252525;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: space-around;
-            padding: 0 40px;
-            box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.2);
-            position: relative;
-            bottom: auto;
-            right: auto;
-            width: auto;
-            z-index: auto; // Reset
+            padding: 0 60px;
+            border-top: 1px solid variables.$dark-grey;
+            border-bottom: 1px solid #3a3a3a;
+            box-shadow:
+                inset 0 10px 20px rgba(variables.$black, 0.5);
+            z-index: 1;
 
             .control-group {
+                flex: 1;
+                max-width: 380px;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-                gap: 10px;
-                width: 100%;
-                max-width: 300px;
-                height: auto;
+                gap: 15px;
 
                 label {
-                    position: relative;
-                    bottom: auto;
-                    color: #95a5a6;
-                    font-weight: 600;
-                    font-size: 0.9rem;
+                    color: #aaa;
+                    font-size: 0.75rem;
                     text-transform: uppercase;
-                    letter-spacing: 1px;
-                    text-shadow: none;
-                    display: block;
+                    letter-spacing: 1.5px;
+                    font-weight: 700;
+                    margin-left: 2px;
+                    text-shadow: 0 -1px 0 variables.$black;
                 }
             }
         }
 
-        // Input styles specific to Standard skin (Sliders)
         input[type=range] {
-            width: 100%;
-            height: auto;
-            opacity: 1;
-            cursor: pointer;
-            background: transparent;
-            border-radius: 0;
-            border: none;
-            margin: 0;
-            padding: 0;
             -webkit-appearance: none;
             appearance: none;
+            width: 100%;
+            background: transparent;
+            cursor: pointer;
+            height: 30px;
+            position: relative;
+            z-index: 2;
 
             &:focus {
                 outline: none;
             }
 
-            // Track
             &::-webkit-slider-runnable-track {
                 width: 100%;
-                height: 8px;
-                cursor: pointer;
-                background: #111;
-                border-radius: 4px;
-                box-shadow: 0 1px 1px rgba(255, 255, 255, 0.1);
+                height: 6px;
+                background: variables.$dark-grey;
+                border-radius: 3px;
+                box-shadow:
+                    inset 0 1px 2px rgba(variables.$black, 0.9),
+                    0 1px 0 rgba(variables.$white, 0.05);
+                border: 1px solid variables.$black;
+                margin-top: 12px;
             }
 
-            // Thumb (Knob)
             &::-webkit-slider-thumb {
-                height: 24px;
-                width: 24px;
-                border-radius: 50%;
-                background: #ecf0f1;
-                cursor: pointer;
                 -webkit-appearance: none;
-                margin-top: -8px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-                border: 2px solid #bdc3c7;
-                opacity: 1;
+                height: 28px;
+                width: 40px;
+                background: linear-gradient(to bottom, #444, #222);
+                margin-top: -12px;
+                border-radius: 4px;
+                box-shadow:
+                    0 4px 6px rgba(variables.$black, 0.7),
+                    inset 0 1px 0 rgba(variables.$white, 0.2);
+                border: 1px solid variables.$dark-grey;
+                position: relative;
+
+                background-image: repeating-linear-gradient(to right,
+                        transparent,
+                        transparent 4px,
+                        rgba(variables.$black, 0.5) 5px,
+                        rgba(variables.$white, 0.05) 6px);
             }
 
-            &:disabled {
-                cursor: not-allowed;
+            &:active::-webkit-slider-thumb {
+                background: linear-gradient(to bottom, #333, variables.$dark-grey);
+                box-shadow: 0 2px 4px rgba(variables.$black, 0.9);
+            }
 
-                &::-webkit-slider-runnable-track {
-                    cursor: not-allowed;
-                }
+            &::-moz-range-track {
+                width: 100%;
+                height: 6px;
+                background: variables.$dark-grey;
+                border-radius: 3px;
+                box-shadow: inset 0 1px 2px rgba(variables.$black, 0.9);
+                border: 1px solid variables.$black;
+            }
 
-                &::-webkit-slider-thumb {
-                    cursor: not-allowed;
-                }
+            &::-moz-range-thumb {
+                height: 28px;
+                width: 40px;
+                background: linear-gradient(to bottom, #444, #222);
+                border-radius: 4px;
+                box-shadow: 0 4px 6px rgba(variables.$black, 0.7);
+                border: 1px solid variables.$dark-grey;
             }
         }
     }

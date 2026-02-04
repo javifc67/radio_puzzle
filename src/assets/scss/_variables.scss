@@ -1,13 +1,21 @@
-// Colors
 $primary-color: #2c3e50;
 $secondary-color: #e74c3c;
 $accent-color: #d35400;
 $text-color: #ecf0f1;
 $bg-color: #1a252f;
 
-$screen-bg: #000;
-$grill-color: #111;
+$black: #000;
+$dark-grey: #111;
+$grey: #222;
+$light-grey: #ddd;
+$white: #fff;
 
-// Fonts
+$screen-bg: #0f1212;
+$grill-color: #1a1a1a;
+$led-color: #5fffa3;
+$led-text-shadow: 0 0 10px rgba(95, 255, 163, 0.4);
+$needle-color: #ff4444;
+$glass-reflection: linear-gradient(115deg, rgba(255, 255, 255, 0.03) 30%, transparent 32%, transparent 38%, rgba(255, 255, 255, 0.02) 40%);
+
 $font-family-base: 'Inter', sans-serif;
 $font-family-display: 'Share Tech Mono', monospace;
