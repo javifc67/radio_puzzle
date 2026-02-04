@@ -41,8 +41,12 @@ export default function RotaryKnob({
         let angleDeg = angleRad * (180 / Math.PI);
         let clockAngle = angleDeg + 90;
 
-        if (clockAngle > 180) clockAngle -= 360; // Normalize
+        if (clockAngle > 180) clockAngle -= 360;
+        else if (clockAngle <= -180) clockAngle += 360;
 
+        if (clockAngle > 135 || clockAngle < -135) {
+            return;
+        }
         let clampedAngle = Math.max(-135, Math.min(135, clockAngle));
         const pct = (clampedAngle + 135) / 270;
         let newValue = min + pct * (max - min);
@@ -50,7 +54,9 @@ export default function RotaryKnob({
         if (step) {
             newValue = Math.round(newValue / step) * step;
         }
+
         newValue = Math.max(min, Math.min(max, newValue));
+
         if (newValue !== value) {
             onChange(newValue);
         }
@@ -79,7 +85,6 @@ export default function RotaryKnob({
     const onTouchStart = (e) => {
         const touch = e.touches[0];
         handleStart(touch.clientX, touch.clientY);
-        // e.preventDefault(); // can block scrolling? ok for knob.
     };
 
     useEffect(() => {
