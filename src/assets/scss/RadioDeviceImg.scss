@@ -2,7 +2,6 @@
 .skin-retro {
     .radio-device {
         width: 60%;
-        aspect-ratio: 8/5;
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: center;
@@ -38,8 +37,6 @@
         }
 
         .display-panel {
-            background: #141414;
-            border-radius: 10px;
             position: absolute;
             padding: 0;
             display: block;
@@ -47,29 +44,52 @@
             z-index: 10;
 
             .scale-container {
+
                 width: 100%;
                 height: 100%;
                 position: relative;
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+                background-position: center;
 
                 .scale-marks {
-                    opacity: 0;
+                    display: flex;
+                    height: 100%;
+                    width: 100%;
+                    align-items: center;
+
+                    .mark {
+                        color: #000;
+                        font-size: 1rem;
+                    }
+
+                    .divider {
+                        position: absolute;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 3px;
+                        height: 60%; // Adjust height as needed
+                        background-color: #000000;
+                        opacity: 0.9;
+                    }
                 }
 
                 .needle {
                     position: absolute;
-                    top: 5%;
-                    bottom: 5%;
+                    top: 15%;
+                    bottom: 15%;
                     width: 4px;
                     background: #e74c3c;
-                    box-shadow: 0 0 5px #ff0000;
                     z-index: 20;
                     transition: left 0.1s linear;
-                    height: 90%;
+                    height: 80%;
                 }
             }
         }
 
         .lcd-display {
+            background: #141414;
+            border-radius: 10px;
             display: flex;
             text-align: center;
             font-family: "Share Tech Mono", monospace;

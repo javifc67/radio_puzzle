@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import '../assets/scss/RadioDeviceImg.scss';
 import { THEMES } from '../constants/constants';
 import RotaryKnob from './RotaryKnob';
@@ -14,6 +14,19 @@ export default function RadioDeviceImg({
     step
 }) {
     const [showVolume, setShowVolume] = useState(false);
+    const radioRef = useRef(null);
+    const [radioWidth, setRadioWidth] = useState(0);
+
+    useEffect(() => {
+        if (!radioRef.current) return;
+        const observer = new ResizeObserver((entries) => {
+            for (let entry of entries) {
+                setRadioWidth(entry.contentRect.width);
+            }
+        });
+        observer.observe(radioRef.current);
+        return () => observer.disconnect();
+    }, []);
 
     const panel = {
         top: config.displayPanel.top,
@@ -44,8 +57,9 @@ export default function RadioDeviceImg({
     };
 
     const calculateNeedlePosition = () => {
-        const pct = ((frequency - minFreq) / (maxFreq - minFreq)) * 100;
-        return Math.min(Math.max(pct, 0), 100);
+        const pct = (frequency - minFreq) / (maxFreq - minFreq);
+        const mapped = 21 + (pct * (88.5 - 21));
+        return Math.min(Math.max(mapped, 21), 88.5);
     };
 
     const modernPanel = <div className="lcd-display">
@@ -56,12 +70,51 @@ export default function RadioDeviceImg({
         </>}
     </div>
 
-    const retroPanel = <div className="scale-container">
+    const generateScaleMarks = () => {
+        const items = [];
+        const steps = 5;
+        const startPos = 21;
+        const endPos = 89;
+        const width = endPos - startPos;
+
+        for (let i = 0; i <= steps; i++) {
+            const pct = i / steps;
+            const freqVal = minFreq + (pct * (maxFreq - minFreq));
+            const pos = startPos + (pct * width);
+            items.push({
+                type: 'mark',
+                val: freqVal.toFixed(),
+                left: `${pos}%`
+            });
+            if (i < steps) {
+                const dividerPct = (i + 0.5) / steps;
+                const dividerPos = startPos + (dividerPct * width);
+                items.push({
+                    type: 'divider',
+                    left: `${dividerPos}%`
+                });
+            }
+        }
+        return items;
+    };
+
+    const retroPanel = <div className="scale-container" style={{ backgroundImage: `url(${config.displayImg})` }}>
         <div className="needle" style={{ left: `${calculateNeedlePosition()}%` }}></div>
+        <div className="scale-marks" >
+            {generateScaleMarks().map((item, i) => (
+                item.type === 'mark' ? (
+                    <div key={i} className="mark" style={{ left: item.left, position: 'absolute', transform: 'translateX(-50%)', fontSize: (radioWidth * 0.03) + "px" }}>
+                        {item.val}
+                    </div>
+                ) : (
+                    <div key={i} className="divider" style={{ left: item.left }}></div>
+                )
+            ))}
+        </div>
     </div>
 
     return (
-        <div className="radio-device" style={{ backgroundImage: `url(${config.radioImg})` }}>
+        <div className="radio-device" ref={radioRef} style={{ backgroundImage: `url(${config.radioImg})`, aspectRatio: config.aspectRatio }}>
             <div className="radio-top" >
                 <div className="display-panel" style={panel}>
                     {config.skin === THEMES.MODERN ? modernPanel : retroPanel}

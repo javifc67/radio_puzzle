@@ -26,10 +26,26 @@ export const THEME_ASSETS = {
   },
   [THEMES.RETRO]: {
     radioImg: "/images/radio_retro.png",
+    buttonImg: "/images/button_retro.png",
+    displayImg: "/images/display_retro3.png",
+    aspectRatio: "786/546",
+    displayPanel: {
+      top: "26.5%",
+      left: "24%",
+      width: "52%",
+      height: "13%",
+    },
+    buttons: {
+      bottom: "13.4%",
+      left: "-15.1%",
+      width: "130%",
+      height: "12.5%",
+    },
   },
   [THEMES.MODERN]: {
     radioImg: "/images/radio_modern.png",
     buttonImg: "/images/button_modern.png",
+    aspectRatio: "8/5",
     displayPanel: {
       top: "43.5%",
       left: "35%",
